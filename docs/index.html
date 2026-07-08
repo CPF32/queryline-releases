@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Queryline — Natural Language SQL</title>
+    <meta
+      name="description"
+      content="Queryline connects to your database, understands your schema, and turns your questions into SQL."
+    />
+    <link rel="icon" href="icon.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #07080f;
+        --border: #252a3d;
+        --text: #f0f2fa;
+        --text-secondary: #9ba3bc;
+        --text-muted: #636b85;
+        --accent: #ff6320;
+        --accent-hover: #e8550f;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .page {
+        height: 100%;
+        max-width: 880px;
+        margin: 0 auto;
+        padding: clamp(1rem, 2.5vh, 1.75rem) clamp(1rem, 3vw, 1.5rem);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(0.75rem, 2vh, 1.25rem);
+        text-align: center;
+      }
+
+      .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: clamp(0.35rem, 1vh, 0.625rem);
+        flex-shrink: 0;
+      }
+
+      .hero__mark {
+        width: clamp(48px, 8vh, 60px);
+        height: clamp(48px, 8vh, 60px);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 0 0 1px rgba(255, 99, 32, 0.35), 0 0 24px rgba(255, 99, 32, 0.16);
+      }
+
+      .hero__mark img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .hero__eyebrow {
+        margin: 0;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .hero__title {
+        margin: 0;
+        font-size: clamp(1.5rem, 4vh, 2.125rem);
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+      }
+
+      .hero__subtitle {
+        margin: 0;
+        max-width: 32rem;
+        font-size: clamp(0.8125rem, 1.8vh, 0.9375rem);
+        line-height: 1.45;
+        color: var(--text-secondary);
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(0.45rem, 1vh, 0.625rem);
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        flex-shrink: 1;
+        min-height: 0;
+      }
+
+      .feature {
+        padding: clamp(0.5rem, 1.2vh, 0.75rem) clamp(0.625rem, 1.5vw, 0.875rem);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: linear-gradient(180deg, rgba(24, 28, 40, 0.9), rgba(18, 21, 31, 0.9));
+        text-align: left;
+      }
+
+      .feature strong {
+        display: block;
+        margin-bottom: 0.15rem;
+        font-size: clamp(0.75rem, 1.6vh, 0.8125rem);
+        line-height: 1.25;
+      }
+
+      .feature span {
+        color: var(--text-secondary);
+        font-size: clamp(0.6875rem, 1.5vh, 0.75rem);
+        line-height: 1.35;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .cta {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.375rem;
+        flex-shrink: 0;
+      }
+
+      .download-btn {
+        appearance: none;
+        border: none;
+        border-radius: 9999px;
+        padding: 0.625rem 1.25rem;
+        min-width: 200px;
+        font: inherit;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #fff;
+        background: var(--accent);
+        cursor: pointer;
+        transition: background 0.15s ease;
+        box-shadow: 0 0 0 1px rgba(255, 99, 32, 0.35);
+      }
+
+      .download-btn:hover:not(:disabled) {
+        background: var(--accent-hover);
+      }
+
+      .download-btn:disabled {
+        opacity: 0.7;
+        cursor: wait;
+      }
+
+      .cta__hint,
+      .cta__error {
+        margin: 0;
+        max-width: 28rem;
+        font-size: 0.6875rem;
+        line-height: 1.35;
+        color: var(--text-muted);
+      }
+
+      .cta__error {
+        color: #fda4af;
+      }
+
+      .footer {
+        margin: 0;
+        font-size: 0.6875rem;
+        color: var(--text-muted);
+        flex-shrink: 0;
+      }
+
+      .footer a {
+        color: var(--text-secondary);
+        text-decoration: none;
+      }
+
+      .footer a:hover {
+        color: var(--accent);
+      }
+
+      @media (max-width: 560px), (max-height: 640px) {
+        .features {
+          grid-template-columns: 1fr;
+        }
+
+        .feature span {
+          -webkit-line-clamp: 3;
+        }
+      }
+
+      @media (max-height: 520px) {
+        .hero__mark {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <div class="hero__mark">
+          <img src="icon.png" width="60" height="60" alt="Queryline" />
+        </div>
+        <p class="hero__eyebrow">Natural Language SQL</p>
+        <h1 class="hero__title">Your words. Your data.</h1>
+        <p class="hero__subtitle">
+          Queryline connects to SQLite, PostgreSQL, MySQL, or SQL Server, learns your schema,
+          and helps explore your data in plain English.
+        </p>
+      </section>
+
+      <ul class="features">
+        <li class="feature">
+          <strong>Connect read-only data sources</strong>
+          <span>Import schema metadata and keep write/DDL SQL blocked at runtime.</span>
+        </li>
+        <li class="feature">
+          <strong>Choose your LLM</strong>
+          <span>Use local Ollama or cloud providers like OpenAI, Anthropic, and Gemini.</span>
+        </li>
+        <li class="feature">
+          <strong>Chat with your data</strong>
+          <span>Generate SQL, run queries, inspect results, and render charts from one conversation.</span>
+        </li>
+        <li class="feature">
+          <strong>Built for teams and individuals</strong>
+          <span>Desktop app for analysts, Docker deployment for shared company networks.</span>
+        </li>
+      </ul>
+
+      <div class="cta">
+        <button id="download-btn" class="download-btn" type="button">Download for this computer</button>
+        <p id="download-hint" class="cta__hint">Detecting your platform…</p>
+        <p id="download-error" class="cta__error" hidden></p>
+      </div>
+
+      <footer class="footer">
+        <a href="https://github.com/CPF32/queryline-releases/releases/latest">All releases</a>
+      </footer>
+    </main>
+
+    <script>
+      const RELEASES_REPO = "CPF32/queryline-releases";
+      const RELEASES_LATEST = "https://api.github.com/repos/" + RELEASES_REPO + "/releases/latest";
+      const RELEASES_PAGE = "https://github.com/" + RELEASES_REPO + "/releases/latest";
+
+      const btn = document.getElementById("download-btn");
+      const hint = document.getElementById("download-hint");
+      const error = document.getElementById("download-error");
+
+      function detectPlatform() {
+        const ua = navigator.userAgent.toLowerCase();
+        const platform = (navigator.platform || "").toLowerCase();
+
+        if (platform.includes("mac") || ua.includes("mac")) {
+          return { id: "mac", label: "macOS", prefer: [".dmg", "-mac.zip"] };
+        }
+        if (platform.includes("win") || ua.includes("windows")) {
+          return { id: "win", label: "Windows", prefer: ["setup", ".exe"] };
+        }
+        if (platform.includes("linux") || ua.includes("linux")) {
+          return { id: "linux", label: "Linux", prefer: [".appimage", ".deb"] };
+        }
+        return { id: "unknown", label: "your platform", prefer: [] };
+      }
+
+      function pickAsset(assets, platform) {
+        const names = assets.map((asset) => asset.name.toLowerCase());
+        for (const token of platform.prefer) {
+          const match = assets.find((asset) => asset.name.toLowerCase().includes(token));
+          if (match) {
+            return match;
+          }
+        }
+        if (platform.id === "mac") {
+          return assets.find((asset) => names.some((name) => name.includes("mac"))) || null;
+        }
+        if (platform.id === "win") {
+          return assets.find((asset) => asset.name.toLowerCase().endsWith(".exe")) || null;
+        }
+        if (platform.id === "linux") {
+          return assets.find((asset) => asset.name.toLowerCase().endsWith(".appimage")) || null;
+        }
+        return null;
+      }
+
+      async function initDownload() {
+        const platform = detectPlatform();
+        btn.disabled = true;
+        hint.textContent = "Finding the latest release…";
+
+        try {
+          const response = await fetch(RELEASES_LATEST, {
+            headers: { Accept: "application/vnd.github+json" },
+          });
+          if (!response.ok) {
+            throw new Error("Could not load the latest release.");
+          }
+
+          const release = await response.json();
+          const asset = pickAsset(release.assets || [], platform);
+
+          if (!asset) {
+            btn.textContent = "View releases";
+            btn.disabled = false;
+            hint.textContent = "No installer matched automatically for " + platform.label + ".";
+            btn.onclick = () => {
+              window.location.href = RELEASES_PAGE;
+            };
+            return;
+          }
+
+          const version = (release.tag_name || "").replace(/^v/, "");
+          btn.textContent = "Download for " + platform.label;
+          btn.disabled = false;
+          hint.textContent =
+            "Queryline v" + (version || "latest") + " · unsigned-app warning on first install is normal.";
+          btn.onclick = () => {
+            window.location.href = asset.browser_download_url;
+          };
+        } catch (err) {
+          btn.textContent = "View releases";
+          btn.disabled = false;
+          hint.textContent = "Automatic download is unavailable.";
+          error.hidden = false;
+          error.textContent = err instanceof Error ? err.message : "Could not check for updates.";
+          btn.onclick = () => {
+            window.location.href = RELEASES_PAGE;
+          };
+        }
+      }
+
+      initDownload();
+    </script>
+  </body>
+</html>
