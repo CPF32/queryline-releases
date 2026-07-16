@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Queryline — Natural Language SQL</title>
+    <title>Grove — Natural Language SQL</title>
     <meta
       name="description"
-      content="Queryline connects to your database, understands your schema, and turns your questions into SQL."
+      content="Grove connects to your database, understands your schema, and turns your questions into SQL."
     />
     <link rel="icon" href="icon.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,13 +17,13 @@
     />
     <style>
       :root {
-        --bg: #07080f;
-        --border: #252a3d;
-        --text: #f0f2fa;
-        --text-secondary: #9ba3bc;
-        --text-muted: #636b85;
-        --accent: #ff6320;
-        --accent-hover: #e8550f;
+        --bg: #1a1d23;
+        --border: #3a3f4a;
+        --text: #e8eaed;
+        --text-secondary: #a8b0bd;
+        --text-muted: #6c6f74;
+        --accent: #88bf5d;
+        --accent-hover: #75a450;
       }
 
       * {
@@ -70,7 +70,7 @@
         height: clamp(48px, 8vh, 60px);
         border-radius: 14px;
         overflow: hidden;
-        box-shadow: 0 0 0 1px rgba(255, 99, 32, 0.35), 0 0 24px rgba(255, 99, 32, 0.16);
+        box-shadow: 0 0 0 1px rgba(136, 191, 93, 0.35), 0 0 24px rgba(136, 191, 93, 0.16);
       }
 
       .hero__mark img {
@@ -119,7 +119,7 @@
         padding: clamp(0.5rem, 1.2vh, 0.75rem) clamp(0.625rem, 1.5vw, 0.875rem);
         border: 1px solid var(--border);
         border-radius: 10px;
-        background: linear-gradient(180deg, rgba(24, 28, 40, 0.9), rgba(18, 21, 31, 0.9));
+        background: linear-gradient(180deg, rgba(46, 50, 60, 0.9), rgba(37, 40, 48, 0.9));
         text-align: left;
       }
 
@@ -157,11 +157,11 @@
         font: inherit;
         font-size: 0.875rem;
         font-weight: 600;
-        color: #fff;
+        color: #1a1d23;
         background: var(--accent);
         cursor: pointer;
         transition: background 0.15s ease;
-        box-shadow: 0 0 0 1px rgba(255, 99, 32, 0.35);
+        box-shadow: 0 0 0 1px rgba(136, 191, 93, 0.35);
       }
 
       .download-btn:hover:not(:disabled) {
@@ -223,12 +223,12 @@
     <main class="page">
       <section class="hero">
         <div class="hero__mark">
-          <img src="icon.png" width="60" height="60" alt="Queryline" />
+          <img src="icon.png" width="60" height="60" alt="Grove" />
         </div>
         <p class="hero__eyebrow">Natural Language SQL</p>
-        <h1 class="hero__title">Your words. Your data.</h1>
+        <h1 class="hero__title">Your Words. Your Data</h1>
         <p class="hero__subtitle">
-          Queryline connects to SQLite, PostgreSQL, MySQL, or SQL Server, learns your schema,
+          Grove connects to SQLite, PostgreSQL, MySQL, or SQL Server, learns your schema,
           and helps explore your data in plain English.
         </p>
       </section>
@@ -338,7 +338,7 @@
           btn.textContent = "Download for " + platform.label;
           btn.disabled = false;
           hint.textContent =
-            "Queryline v" + (version || "latest") + " · unsigned-app warning on first install is normal.";
+            "Grove v" + (version || "latest") + " · unsigned-app warning on first install is normal.";
           btn.onclick = () => {
             window.location.href = asset.browser_download_url;
           };
